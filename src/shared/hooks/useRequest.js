@@ -14,21 +14,14 @@ const useRequest = (fn, ...args) => {
     const promise = memoized();
     const response = {};
 
-    promise
-      .then(data => {
-
-        response.data = data;
-
-      })
-      .catch(e => {
-        response.error = e;
-      })
-      .finally(() => mounted && set({
-          loading: false,
-          ...response,
-        }),
-      );
-
+    promise.then((data) => {
+      response.data = data;
+    }).catch((e) => {
+      response.error = e;
+    }).finally(() => mounted && set({
+      loading: false,
+      ...response,
+    }));
     return () => {
       mounted = false;
     };
@@ -36,6 +29,5 @@ const useRequest = (fn, ...args) => {
 
   return state;
 };
-
 
 export default useRequest;
