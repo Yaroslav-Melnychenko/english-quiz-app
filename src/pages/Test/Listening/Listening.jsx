@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import OneTask from '../components/OneTask';
-import Player from '../components/AudioPlayer';
+import AudioPlayer from '../components/AudioPlayer';
+import audio from '../../../assets/audio/listentest.mp3';
 import '../Test.scss';
 
 class Listening extends Component {
@@ -59,7 +60,7 @@ class Listening extends Component {
     return (
       <div className="test-container">
         <h2>Listening tasks</h2>
-        <Player />
+        <AudioPlayer src={audio} />
         {
           questions.map((question, i) => <OneTask number={i + 1} key={question.id} {...question} />)
         }

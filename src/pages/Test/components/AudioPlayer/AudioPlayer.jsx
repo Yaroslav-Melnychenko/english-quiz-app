@@ -1,30 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Fab from '@material-ui/core/Fab';
 import { FaPlay } from 'react-icons/fa';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { withStyles } from '@material-ui/core/styles';
+import useAudio from './use-audio';
+import styles from './styles';
 
-const Player = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
 
-  const audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3');
-
-  const playMusic = () => {
-    setIsPlaying(true);
-    audio.play();
-  };
+const AudioPlayer = ({ src, classes }) => {
+  const {
+    onPlay, isPlaying, isDone, progress,
+  } = useAudio(src, 2);
 
   return (
-    <div>
+    <div className={classes.root}>
       <Fab
+        disabled={isPlaying || isDone}
         variant="round"
         color="primary"
         type="button"
-        onClick={playMusic}
-        disabled={isPlaying}
+        onClick={onPlay}
+        className={classes.fab}
       >
         <FaPlay />
       </Fab>
+      <LinearProgress variant="buffer" value={progress} valueBuffer={progress} className={classes.progress} />
     </div>
   );
 };
 
-export default Player;
+export default withStyles(styles)(AudioPlayer);
