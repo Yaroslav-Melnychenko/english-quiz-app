@@ -49,10 +49,24 @@ class Listening extends Component {
         ],
       },
     ],
+    answersToSend: [],
+  }
+
+  handleCheckbox = ({ answer }) => {
+    // const { answersToSend } = this.state;
+    // // let push = false;
+    // for (let i = 0; i < answersToSend.lengthl; i += 1) {
+    //   if (answersToSend[i].id === answer.id) {
+    //     answersToSend[i] = answer;
+    //   }
+    // }
+    // // answersToSend.push(answer);
+    // console.log(answersToSend);
+    // this.setState({ answersToSend });
   }
 
   submitTest = () => {
-    window.console.log('submitTest');
+    window.console.log(this.state);
   }
 
   render() {
@@ -62,7 +76,14 @@ class Listening extends Component {
         <h2>Listening tasks</h2>
         <AudioPlayer src={audio} />
         {
-          questions.map((question, i) => <OneTask number={i + 1} key={question.id} {...question} />)
+          questions.map((question, i) => (
+            <OneTask
+              number={i + 1}
+              key={question.id}
+              {...question}
+              handleCheckbox={this.handleCheckbox}
+            />
+          ))
         }
         <div className="btn-container">
           <Button variant="contained" color="primary" onClick={this.submitTest}>
