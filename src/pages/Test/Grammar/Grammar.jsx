@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import OneTask from '../components/OneTask';
-import './Grammar.scss';
+import '../Test.scss';
 
 class Grammar extends Component {
   state = {
