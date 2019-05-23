@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import OneTask from '../components/OneTask';
 import AudioPlayer from '../components/AudioPlayer';
 import audio from '../../../assets/audio/listentest.mp3';
+// import { ifObjectIdExistInArray } from '../functions';
 import '../Test.scss';
 
 class Listening extends Component {
@@ -49,20 +50,11 @@ class Listening extends Component {
         ],
       },
     ],
-    answersToSend: [],
+    answers: [],
   }
 
   handleCheckbox = ({ answer }) => {
-    // const { answersToSend } = this.state;
-    // // let push = false;
-    // for (let i = 0; i < answersToSend.lengthl; i += 1) {
-    //   if (answersToSend[i].id === answer.id) {
-    //     answersToSend[i] = answer;
-    //   }
-    // }
-    // // answersToSend.push(answer);
-    // console.log(answersToSend);
-    // this.setState({ answersToSend });
+    window.console.log(answer);
   }
 
   submitTest = () => {

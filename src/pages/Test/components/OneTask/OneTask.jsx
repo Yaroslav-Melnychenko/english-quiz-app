@@ -20,7 +20,7 @@ class OneTask extends Component {
         title,
         selected: e.target.name,
       },
-    }, () => { handleCheckbox(this.state); });
+    }, () => handleCheckbox(this.state));
   }
 
   render() {
