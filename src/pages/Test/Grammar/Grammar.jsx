@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import OneTask from '../components/OneTask';
+import { ifObjectIdExistInArray, findArrayIndex } from '../functions';
 import '../Test.scss';
 
 class Grammar extends Component {
@@ -59,8 +60,19 @@ class Grammar extends Component {
     ],
   }
 
+  answers = [];
+
+  handleCheckbox = ({ answer }) => {
+    if (ifObjectIdExistInArray(answer, this.answers)) {
+      const index = findArrayIndex(answer, this.answers);
+      this.answers[index] = answer;
+    } else {
+      this.answers.push(answer);
+    }
+  }
+
   submitTest = () => {
-    window.console.log('submitTest');
+    window.console.log(this.answers);
   }
 
   render() {
@@ -69,7 +81,14 @@ class Grammar extends Component {
       <div className="test-container">
         <h2>Grammar tasks</h2>
         {
-          questions.map((question, i) => <OneTask number={i + 1} key={question.id} {...question} />)
+          questions.map((question, i) => (
+            <OneTask
+              number={i + 1}
+              key={question.id}
+              {...question}
+              handleCheckbox={this.handleCheckbox}
+            />
+          ))
         }
         <div className="btn-container">
           <Button variant="contained" color="primary" onClick={this.submitTest}>

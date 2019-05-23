@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import OneTask from '../components/OneTask';
 import AudioPlayer from '../components/AudioPlayer';
 import audio from '../../../assets/audio/listentest.mp3';
-// import { ifObjectIdExistInArray } from '../functions';
+import { ifObjectIdExistInArray, findArrayIndex } from '../functions';
 import '../Test.scss';
 
 class Listening extends Component {
@@ -50,15 +50,21 @@ class Listening extends Component {
         ],
       },
     ],
-    answers: [],
   }
 
+  answers = [];
+
   handleCheckbox = ({ answer }) => {
-    window.console.log(answer);
+    if (ifObjectIdExistInArray(answer, this.answers)) {
+      const index = findArrayIndex(answer, this.answers);
+      this.answers[index] = answer;
+    } else {
+      this.answers.push(answer);
+    }
   }
 
   submitTest = () => {
-    window.console.log(this.state);
+    window.console.log(this.answers);
   }
 
   render() {

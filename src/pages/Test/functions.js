@@ -7,3 +7,13 @@ export const ifObjectIdExistInArray = (obj, array) => {
   });
   return ifExist;
 };
+
+export const findArrayIndex = (obj, array) => {
+  let index = -1;
+  array.forEach((element, i) => {
+    if (element.id === obj.id) {
+      index = i;
+    }
+  });
+  return index;
+};
