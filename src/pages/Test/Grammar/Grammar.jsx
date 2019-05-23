@@ -58,6 +58,7 @@ class Grammar extends Component {
         ],
       },
     ],
+    isLoading: false,
   }
 
   answers = [];
@@ -72,11 +73,15 @@ class Grammar extends Component {
   }
 
   submitTest = () => {
-    window.console.log(this.answers);
+    this.setState({ isLoading: true });
+    setTimeout(() => {
+      window.console.log(this.answers);
+      this.setState({ isLoading: false });
+    }, 3000);
   }
 
   render() {
-    const { questions } = this.state;
+    const { questions, isLoading } = this.state;
     return (
       <div className="test-container">
         <h2>Grammar tasks</h2>
@@ -91,9 +96,15 @@ class Grammar extends Component {
           ))
         }
         <div className="btn-container">
-          <Button variant="contained" color="primary" onClick={this.submitTest}>
-            Submit grammar answers
-          </Button>
+          {!isLoading ? (
+            <Button variant="contained" color="primary" onClick={this.submitTest}>
+              Submit grammar answers
+            </Button>
+          ) : (
+            <Button variant="contained" color="primary" onClick={this.submitTest} disabled>
+              Loading
+            </Button>
+          )}
         </div>
       </div>
     );
