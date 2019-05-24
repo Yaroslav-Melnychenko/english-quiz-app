@@ -61,6 +61,7 @@ class Grammar extends Component {
       },
     ],
     isLoading: false,
+    isValid: true,
   }
 
   answers = [];
@@ -82,18 +83,24 @@ class Grammar extends Component {
 
   submitTest = () => {
     const { history } = this.props;
-    this.setState({ isLoading: true });
-    setTimeout(() => {
-      // will send answers
-      window.console.log(this.answers);
-      //
-      this.setState({ isLoading: false });
-      history.push('/listening');
-    }, 3000);
+    const { questions } = this.state;
+
+    if (this.answers.length !== questions.length) {
+      this.setState({ isValid: false });
+    } else {
+      this.setState({ isValid: true, isLoading: true });
+      setTimeout(() => {
+        // will send answers
+        window.console.log(this.answers);
+        //
+        this.setState({ isLoading: false });
+        history.push('/quiz/listening');
+      }, 3000);
+    }
   }
 
   render() {
-    const { questions, isLoading } = this.state;
+    const { questions, isLoading, isValid } = this.state;
     return (
       <div className="test-container">
         <h2>Grammar tasks</h2>
@@ -118,6 +125,7 @@ class Grammar extends Component {
               Loading
             </Button>
           )}
+          { isValid ? null : <div className="error">You should answer for all questions</div>}
         </div>
       </div>
     );
