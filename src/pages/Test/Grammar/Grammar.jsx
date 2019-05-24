@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import OneTask from '../components/OneTask';
 import { ifObjectIdExistInArray, findArrayIndex } from '../functions';
 import '../Test.scss';
@@ -63,6 +65,12 @@ class Grammar extends Component {
 
   answers = [];
 
+  loadingStyles = {
+    width: '20px',
+    height: '20px',
+    marginRight: '15px',
+  }
+
   handleCheckbox = ({ answer }) => {
     if (ifObjectIdExistInArray(answer, this.answers)) {
       const index = findArrayIndex(answer, this.answers);
@@ -73,10 +81,14 @@ class Grammar extends Component {
   }
 
   submitTest = () => {
+    const { history } = this.props;
     this.setState({ isLoading: true });
     setTimeout(() => {
+      // will send answers
       window.console.log(this.answers);
+      //
       this.setState({ isLoading: false });
+      history.push('/listening');
     }, 3000);
   }
 
@@ -102,6 +114,7 @@ class Grammar extends Component {
             </Button>
           ) : (
             <Button variant="contained" color="primary" onClick={this.submitTest} disabled>
+              <CircularProgress style={this.loadingStyles} />
               Loading
             </Button>
           )}
@@ -111,4 +124,4 @@ class Grammar extends Component {
   }
 }
 
-export default Grammar;
+export default withRouter(Grammar);
